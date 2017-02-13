@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
+
+	<!-- 提 供 方 应 用 信 息 ， 用 于 计 算 依 赖 关 系，此参数不是匹配条件 -->
+	<dubbo:application name="consumer-guardian-client" />
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.url}" />
+	
+	<dubbo:reference id="serviceValidateFacade" version="${guardian-dubbo-version}" retries="0"
+		group="${guardian-dubbo-env}" interface="com.leadbank.guardian.facade.validate.ServiceValidateFacade" check="false" timeout="7200000" url="dubbo://localhost:20882"/>
+
+	<dubbo:reference id="authenticationFacade" version="${guardian-dubbo-version}" retries="0"
+		group="${guardian-dubbo-env}" interface="com.leadbank.guardian.facade.validate.AuthenticationFacade" check="false" timeout="7200000" url="dubbo://localhost:20882"/>
+	
+</beans>

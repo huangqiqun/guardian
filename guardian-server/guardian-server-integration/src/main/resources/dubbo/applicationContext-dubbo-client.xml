@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
+
+	<dubbo:reference id="authenticateFacade" version="${dubbo-version}" group="${dubbo-env}" interface="com.leadbank.mcs.facade.AuthenticateFacade" check="false" />
+	<dubbo:reference id="accessTokenFacade" version="${dubbo-version}" group="${dubbo-env}" interface="com.leadbank.mcs.facade.AccessTokenFacade" check="false" />
+	<dubbo:reference id="logoutFacade" version="${dubbo-version}" group="${dubbo-env}" interface="com.leadbank.mcs.facade.LogoutFacade" check="false" />
+
+	<bean id="mcsAuthenticateFacade" class="com.leadbank.guardian.integration.mcs.impl.MCSAuthenticateFacadeImpl" />
+
+	<!-- 会员系统加解密 -->
+	<dubbo:reference id="encryptFacade" version="${dubbo-version}" group="${dubbo-env}" interface="com.leadbank.eds.facade.EncryptFacade" timeout="${timeout}" retries="0" check="false" />
+
+</beans>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+	<property name="LOG_HOME" value="/leadbank/logs/guardianServer" />
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy/MM/dd-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<timestamp key="byDate" datePattern="yyyyMMdd" />
+	<appender name="guardianRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<file>${LOG_HOME}/guardian.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/guardian-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>100MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy/MM/dd-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="bizReqRespRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<file>${LOG_HOME}/bizReqResp.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/bizReqResp-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>100MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy/MM/dd-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="intReqRespRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<file>${LOG_HOME}/intReqResp.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/intReqResp-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>100MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy/MM/dd-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+		
+	<appender name="bizRuntimeRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<file>${LOG_HOME}/runtime.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/runtime-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>200MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy/MM/dd-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 用来设置某一个包或者具体的某一个类的日志打印级别，包名要与实际项目一致 -->
+	<logger name="com.leadbank.guardian" level="info">
+		<appender-ref ref="guardianRolling" />
+	</logger>
+
+	<!-- biz层日志,包括dubbo接口和metaq监听 -->
+	<logger name="bizReqRespRolling" level="info">
+		<appender-ref ref="bizReqRespRolling" />
+	</logger>
+	<!-- integration层日志,访问外系统接口 -->
+	<logger name="intReqRespRolling" level="info">
+		<appender-ref ref="intReqRespRolling" />
+	</logger>
+	<!-- runtime框架层日志,访问外系统接口 -->
+	<logger name="runtime" level="info">
+		<appender-ref ref="bizRuntimeRolling" />
+	</logger>
+	
+	<logger name="org.apache.commons.beanutils.converters" level="info" />
+	<logger name="org.apache.mina.filter.logging.LoggingFilter" level="error" />
+	<logger name="com.taobao" level="error"></logger>
+	
+	<root level="debug">
+	    <appender-ref ref="CONSOLE" />
+		<appender-ref ref="guardianRolling" />
+		<appender-ref ref="bizReqRespRolling" />
+		<appender-ref ref="bizRuntimeRolling" />
+		<appender-ref ref="intReqRespRolling" />
+	</root>
+
+</configuration>

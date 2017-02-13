@@ -1,0 +1,381 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.leadbank.guardian.client</groupId>
+    <artifactId>guardian-client-webapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>guardian-client-webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <profile.artifactId>guardian-client</profile.artifactId>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <leadbank.self.version>0.0.1-SNAPSHOT</leadbank.self.version>
+        <leadbank.runtime.version>0.0.8_20160324-SNAPSHOT</leadbank.runtime.version>
+        <leadbank.session.version>1.0-SNAPSHOT</leadbank.session.version>
+        <!-- Normal dependency -->
+        <logback.version>1.0.13</logback.version>
+        <slf4.version>1.7.5</slf4.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
+        <junit.version>4.11</junit.version>
+        <logback.version>1.0.13</logback.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <commons.codec.version>1.4</commons.codec.version>
+        <com.alibaba.dubbo>2.5.3</com.alibaba.dubbo>
+        <guardian.facade>1.0-SNAPSHOT</guardian.facade>
+    </properties>
+
+    <dependencies>
+        <!-- guardian facade -->
+        <dependency>
+            <groupId>com.leadbank.guardian</groupId>
+            <artifactId>guardian-server-facade</artifactId>
+            <version>${guardian.facade}</version>
+        </dependency>
+        <!-- ====================runtime======================== -->
+        <dependency>
+            <groupId>com.leadbank.runtime</groupId>
+            <artifactId>runtime</artifactId>
+            <version>${leadbank.runtime.version}</version>
+        </dependency>
+        <!-- ====================session======================== -->
+        <dependency>
+            <groupId>com.leadbank.guardian</groupId>
+            <artifactId>guardian-session</artifactId>
+            <version>${leadbank.session.version}</version>
+        </dependency>
+        <!-- ====================zookeeper client======================== -->
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.3</version>
+        </dependency>
+        <!-- ====================dubbo======================== -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${com.alibaba.dubbo}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- ====================commons======================== -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
+        </dependency>
+        <!-- ====================Springframework+SpringMVC======================== -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- ====================logback======================== -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.13.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4.version}</version>
+        </dependency>
+        <!-- ====================junit======================== -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>snapshot</id>
+            <name>snapshot</name>
+            <url>http://10.1.1.135:9090/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>central.maven.com</id>
+            <name>mapbar central mirror.</name>
+            <url>http://10.1.1.135:9090/nexus/content/repositories/central/</url>
+        </repository>
+        <repository>
+            <id>3rd.mapbar.com</id>
+            <name>mapbar thirdparty central mirror.</name>
+            <url>http://10.1.1.135:9090/nexus/content/repositories/thirdparty/</url>
+        </repository>
+        <repository>
+            <id>public.mapbar.com</id>
+            <name>mapbar tech API maven mirror.</name>
+            <url>http://10.1.1.135:9090/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>releases.mapbar.com</id>
+            <name>mapbar thirdparty central mirror.</name>
+            <url>http://10.1.1.135:9090/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Nexus Releases Repository</name>
+            <url>http://10.1.1.135:9090/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshots Repository</name>
+            <url>http://10.1.1.135:9090/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>guardian-client-profile</id>
+            <build>
+                <finalName>${profile.artifactId}-${project.version}</finalName>
+
+                <plugins>
+                    <!-- compiler插件, 设定JDK版本 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.1</version>
+                        <configuration>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                            <encoding>UTF-8</encoding>
+                            <showWarnings>true</showWarnings>
+                        </configuration>
+                    </plugin>
+
+                    <!-- resources插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.4</version>
+                        <executions>
+                            <execution>
+                                <id>default-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>
+                                    **/logback.xml
+                                </exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <version>2.4</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>install-file</goal>
+                                </goals>
+                                <configuration>
+                                    <packaging>jar</packaging>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${profile.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <file>${project.build.directory}/${profile.artifactId}-${project.version}.jar</file>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.7</version>
+                        <executions>
+                            <execution>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy-file</goal>
+                                </goals>
+                                <configuration>
+                                    <packaging>jar</packaging>
+                                    <generatePom>true</generatePom>
+                                    <repositoryId>snapshots</repositoryId>
+                                    <url>${project.distributionManagement.snapshotRepository.url}</url>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${profile.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <file>${project.build.directory}/${profile.artifactId}-${project.version}.jar</file>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>guardian-client-webapp</finalName>
+
+        <plugins>
+            <!-- compiler插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+
+            <!-- resources插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- install插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.7</version>
+                <configuration>
+                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>28081</port>
+                            <maxIdleTime>30000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                    <contextPath>/</contextPath>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <!--<port>28081</port>-->
+                    <path>/</path>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <finalName>guardian-client-webapp</finalName>
+                    <server>tomcat7</server>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

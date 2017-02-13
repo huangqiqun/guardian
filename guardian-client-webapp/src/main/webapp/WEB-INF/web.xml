@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<display-name>guardian-client-webapp</display-name>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+            classpath*:/spring/applicationContext-*.xml
+            classpath*:/spring/applicationContext.xml
+            classpath*:/dubbo/applicationContext-*.xml
+            classpath*:/mq/applicationContext-*.xml
+        </param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>cookieServlet</servlet-name>
+		<servlet-class>com.leadbank.guardian.client.servlet.CookieServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cookieServlet</servlet-name>
+		<url-pattern>/cookie</url-pattern>
+	</servlet-mapping>
+
+	<!-- session共享过滤器 -->
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>Guardian Authentication Filter</filter-name>
+		<filter-class>com.leadbank.guardian.client.authentication.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Guardian Authentication Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>Guardian Validation Filter</filter-name>
+		<filter-class>com.leadbank.guardian.client.validation.ServiceTicketValidationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Guardian Validation Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>

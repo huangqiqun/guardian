@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-3.2.xsd ">
+	
+	<context:annotation-config />
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.leadbank.guardian">
+	</context:component-scan>
+	<aop:aspectj-autoproxy />
+
+    <!-- spring的属性加载器，加载properties文件中的属性 -->
+    <bean id="propertyConfigurer" class="com.leadbank.runtime.zk.ZooKeeperPropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>file:/leadbank/config/guardian-server/env.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8"/>
+    </bean>
+
+    <bean
+            id="servicesManager"
+            class="com.leadbank.guardian.services.DefaultServicesManagerImpl">
+        <constructor-arg index="0" ref="serviceRegistryDao"/>
+    </bean>
+
+    <bean id="httpClient" class="com.leadbank.guardian.util.HttpClient"
+          p:readTimeout="5000"
+          p:connectionTimeout="5000"/>
+
+    <bean id="encryptServiceUtils" class="com.leadbank.guardian.integration.utils.EncryptServiceUtils"
+    	p:encryptFacade-ref="encryptFacade" />
+
+    <!-- CentralAuthenticationService -->
+    <bean id="centralAuthenticationService" class="com.leadbank.guardian.CentralAuthenticationServiceImpl"
+          p:ticketGrantingTicketExpirationPolicy-ref="grantingTicketExpirationPolicy"
+          p:serviceTicketExpirationPolicy-ref="serviceTicketExpirationPolicy"
+          p:authenticationManager-ref="authenticationManager"
+          p:ticketGrantingTicketUniqueTicketIdGenerator-ref="ticketGrantingTicketUniqueIdGenerator"
+          p:ticketRegistry-ref="ticketRegistry"
+          p:servicesManager-ref="servicesManager"
+          p:uniqueTicketIdGeneratorsForService-ref="uniqueIdGeneratorsMap"/>
+
+</beans>
